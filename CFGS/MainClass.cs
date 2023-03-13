@@ -13,5 +13,6 @@ public class MainClass
         }
 
         CFG cfg = new CFG(File.ReadAllText(filePath));
+        cfg.Print();
     }
 }

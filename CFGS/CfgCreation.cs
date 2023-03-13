@@ -78,9 +78,10 @@ public partial class CFG
             }
             
             productionRules[currentRule].rule.Add(token);
-            if (token is not "$" or "lambda")
+            if (token is not ("$" or "lambda"))
             {
-                terminals.Add(token);
+                if(!token.Any(char.IsUpper))
+                    terminals.Add(token);
             }
 
         }
@@ -96,8 +97,16 @@ public partial class CFG
         Console.WriteLine("\nGrammar Rules");
         for (int i = 0; i < productionRules.Count; i++)
         {
-            Console.WriteLine($"({i+1})\t{productionRules[i].nonTerminal} -> {String.Join(" ", productionRules[i].rule)}");
+            Console.WriteLine(
+                $"({i + 1})\t{productionRules[i].nonTerminal} -> {String.Join(" ", productionRules[i].rule)}\t\t " +
+                $"DerivesToLambda: {DerivesToLambda(i)} \t\tFirstSet:{{{string.Join(',', FirstSet(i))}}}");
         }
         Console.WriteLine($"\nGrammar Start Symbol: {startingRule.nonTerminal}");
+        
+        Console.WriteLine("FollowSets:\n");
+        foreach (var nt in nonTerminals)
+        {
+            Console.WriteLine($"{nt}:{{{string.Join(',', FollowSet(nt))}}}");
+        }
     }
 }

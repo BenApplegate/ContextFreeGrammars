@@ -157,4 +157,15 @@ public partial class CFG
 
     }
 
+    HashSet<string> PredictSet(int rule)
+    {
+        if (DerivesToLambda(rule))
+        {
+            return FollowSet(productionRules[rule].nonTerminal);
+        }
+        else
+        {
+            return FirstSet(rule);
+        }
+    }
 }

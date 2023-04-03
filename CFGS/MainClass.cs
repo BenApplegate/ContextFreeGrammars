@@ -14,5 +14,10 @@ public class MainClass
 
         CFG cfg = new CFG(File.ReadAllText(filePath));
         cfg.Print();
+        
+        
+        Console.WriteLine("\n\nNow attempting to perform LL parse");
+        LLParser parser = new LLParser(cfg);
+        parser.printLLTable();
     }
 }

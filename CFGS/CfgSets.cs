@@ -157,7 +157,7 @@ public partial class CFG
 
     }
 
-    HashSet<string> PredictSet(int rule)
+    public HashSet<string> PredictSet(int rule)
     {
         if (DerivesToLambda(rule))
         {

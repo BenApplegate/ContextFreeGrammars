@@ -2,10 +2,10 @@
 
 public partial class CFG
 {
-    private List<(string nonTerminal, List<string> rule)> productionRules = new List<(string nonTerminal, List<string> rule)>();
-    private Dictionary<string, HashSet<int>> productionMap = new Dictionary<string, HashSet<int>>();
-    private HashSet<string> terminals = new HashSet<string>();
-    private HashSet<string> nonTerminals = new HashSet<string>();
+    public List<(string nonTerminal, List<string> rule)> productionRules = new List<(string nonTerminal, List<string> rule)>();
+    public Dictionary<string, HashSet<int>> productionMap = new Dictionary<string, HashSet<int>>();
+    public HashSet<string> terminals = new HashSet<string>();
+    public HashSet<string> nonTerminals = new HashSet<string>();
     private (int ruleNum, string nonTerminal) startingRule = (-1, "");
 
     public bool ruleIsLambda(int ruleNum)

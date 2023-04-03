@@ -6,7 +6,7 @@ public partial class CFG
     public Dictionary<string, HashSet<int>> productionMap = new Dictionary<string, HashSet<int>>();
     public HashSet<string> terminals = new HashSet<string>();
     public HashSet<string> nonTerminals = new HashSet<string>();
-    private (int ruleNum, string nonTerminal) startingRule = (-1, "");
+    public (int ruleNum, string nonTerminal) startingRule = (-1, "");
 
     public bool ruleIsLambda(int ruleNum)
     {

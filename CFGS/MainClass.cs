@@ -16,8 +16,13 @@ public class MainClass
         cfg.Print();
         
         
+        
         Console.WriteLine("\n\nNow attempting to perform LL parse");
+        Console.WriteLine("Please provide the location of the input tokens:");
+        string filename = Console.ReadLine() ?? "";
         LLParser parser = new LLParser(cfg);
         parser.printLLTable();
+        
+        parser.parse(filename);
     }
 }

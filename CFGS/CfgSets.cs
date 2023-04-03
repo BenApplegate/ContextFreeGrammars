@@ -159,13 +159,14 @@ public partial class CFG
 
     public HashSet<string> PredictSet(int rule)
     {
+
+        var ret = FirstSet(rule);
+        
         if (DerivesToLambda(rule))
         {
-            return FollowSet(productionRules[rule].nonTerminal);
+            ret.UnionWith(FollowSet(productionRules[rule].nonTerminal));
         }
-        else
-        {
-            return FirstSet(rule);
-        }
+
+        return ret;
     }
 }

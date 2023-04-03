@@ -20,9 +20,15 @@ public class MainClass
         Console.WriteLine("\n\nNow attempting to perform LL parse");
         Console.WriteLine("Please provide the location of the input tokens:");
         string filename = Console.ReadLine() ?? "";
+        
+        Console.WriteLine("\nWould you like to use SDT (Will search assembly for any SDTProc functions and run them)" +
+                          "\nType \"yes\" to use SDT type anything else to not use it");
+
+        bool useSDT = (Console.ReadLine() ?? "").ToLower() == "yes";
+        
         LLParser parser = new LLParser(cfg);
         parser.printLLTable();
         
-        parser.parse(filename);
+        parser.parse(filename, useSDT);
     }
 }

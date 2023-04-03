@@ -2,7 +2,7 @@
 
 public partial class LLParser
 {
-    enum NodeType
+    public enum NodeType
     {
         ROOT,
         NON_TERMINAL,
@@ -11,7 +11,7 @@ public partial class LLParser
         END_OF_INPUT
     }
 
-    class LLNode
+    public class LLNode
     {
         public NodeType type;
         public string tokenType;

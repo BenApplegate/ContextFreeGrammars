@@ -1,5 +1,5 @@
 ﻿using System.Data;
-using System.Text.Json;
+using System.Reflection;
 
 namespace CFGS;
 
@@ -158,6 +158,22 @@ public partial class LLParser
 
     private void runSDT(LLNode current)
     {
-        
+        foreach (var t in Assembly.GetExecutingAssembly().GetTypes())
+        {
+            foreach (var m in t.GetMethods())
+            {
+                foreach (var a in m.GetCustomAttributes())
+                {
+                    if (a is SDTProcAttribute)
+                    {
+                        string non_terminal = ((SDTProcAttribute)a).nonTerminal;
+                        if (current.tokenType == non_terminal)
+                        {
+                            m.Invoke(null, new[] { current });
+                        }
+                    }
+                }
+            }
+        }
     }
 }

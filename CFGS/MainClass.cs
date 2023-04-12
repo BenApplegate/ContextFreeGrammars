@@ -4,7 +4,7 @@ public class MainClass
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine("Please enter the path to the input file:");
+        Console.WriteLine("Please enter the path to the input CFG file:");
         string filePath = Console.ReadLine() ?? "";
         if (!File.Exists(filePath))
         {

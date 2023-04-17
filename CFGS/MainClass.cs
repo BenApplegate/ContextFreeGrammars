@@ -1,4 +1,6 @@
-﻿namespace CFGS;
+﻿using System.Diagnostics;
+
+namespace CFGS;
 
 public class MainClass
 {
@@ -30,5 +32,16 @@ public class MainClass
         parser.printLLTable();
         
         parser.parse(filename, useSDT);
+        
+        Console.WriteLine("If you would like to save the resulting tree as an SVG file enter the location to save it to, otherwise hit enter" +
+                          "\n(Note that dot must be in the PATH for this to work)");
+        filename = Console.ReadLine();
+        if (!string.IsNullOrEmpty(filename))
+        {
+           parser.SaveDotFile(filename+".dot");
+           var proc = Process.Start("dot", $"-Tsvg {filename + ".dot"} -o {filename}");
+           proc.WaitForExit();
+           File.Delete(filename + ".dot");
+        }
     }
 }

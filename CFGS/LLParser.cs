@@ -7,6 +7,7 @@ public partial class LLParser
 {
     private CFG _cfg;
     private Dictionary<String, Dictionary<String, int>> llTable = new Dictionary<string, Dictionary<string, int>>();
+    private LLNode finishedParse = null;
 
     public LLParser(CFG c)
     {
@@ -80,8 +81,7 @@ public partial class LLParser
        }
 
        var result = parseTokenStream(tokenStream, useSDT);
-
-       result.Print();
+       finishedParse = result;
     }
 
     private LLNode parseTokenStream(Queue<(string tokenType, string? value)> tokenStream, bool useSDT)
@@ -175,5 +175,15 @@ public partial class LLParser
                 }
             }
         }
+    }
+
+    public void SaveDotFile(string filename)
+    {
+        if (finishedParse == null)
+        {
+            throw new Exception("A parse has not completed successfully");
+        }
+        
+        finishedParse.SaveGraphToFile(filename);
     }
 }

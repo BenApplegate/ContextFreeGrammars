@@ -1,4 +1,7 @@
-﻿namespace CFGS;
+﻿using csdot;
+using csdot.Attributes.DataTypes;
+
+namespace CFGS;
 
 public partial class LLParser
 {
@@ -95,6 +98,54 @@ public partial class LLParser
             for (int i = 0; i < children.Count; i++)
             {
                 children[i].Print(depth + 1, i == children.Count-1, new List<bool>(printPipe));
+            }
+        }
+
+        public void SaveGraphToFile(string filename)
+        {
+            //Due to some weird dot thing, each node in the graph needs a unique name
+            //I will use i for this
+            int i = 0;
+            
+            Graph graph = new Graph("root");
+            graph.type = "graph";
+
+            Node rootNode = new Node($"\"{i}\\n{tokenType}\\n({value})\"");
+            graph.AddElement(rootNode);
+
+            foreach (var child in children)
+            {
+                child.AddChildToGraph(rootNode, graph, ref i);
+            }
+
+            new DotDocument().SaveToFile(graph, filename);
+        }
+
+        public void AddChildToGraph(Node parentNode, Graph graph, ref int i)
+        {
+            //We need to increment the node id to keep uniqueness
+            i++;
+            
+            //First we need to create a new node for the child
+            Node newNode = new Node($"\"{i}\\n{tokenType}\\n({value})\"");
+            
+            //Next we need to create the dot transition
+            List<Transition> transitions = new List<Transition>()
+            {
+                new Transition(parentNode, EdgeOp.undirected),
+                new Transition(newNode, EdgeOp.unspecified)
+            };
+            
+            //Next we create an edge using our transition
+            Edge edge = new Edge(transitions);
+            
+            //Next we add our new node and edge to the graph
+            graph.AddElements(newNode, edge);
+            
+            //Finally we need to attach our children to us
+            foreach (var child in children)
+            {
+                child.AddChildToGraph(newNode, graph, ref i);
             }
         }
     }

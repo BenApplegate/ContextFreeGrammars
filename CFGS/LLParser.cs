@@ -186,4 +186,14 @@ public partial class LLParser
         
         finishedParse.SaveGraphToFile(filename);
     }
+
+    public void PrintParseTree()
+    {
+        if (finishedParse == null)
+        {
+            throw new Exception("A parse has not completed successfully");
+        }
+        
+        finishedParse.Print();
+    }
 }

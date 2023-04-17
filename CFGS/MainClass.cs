@@ -32,6 +32,7 @@ public class MainClass
         parser.printLLTable();
         
         parser.parse(filename, useSDT);
+        parser.PrintParseTree();
         
         Console.WriteLine("If you would like to save the resulting tree as an SVG file enter the location to save it to, otherwise hit enter" +
                           "\n(Note that dot must be in the PATH for this to work)");
